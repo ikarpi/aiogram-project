@@ -5,7 +5,7 @@ from aiogram.types import Message, FSInputFile
 from config import TOKEN
 
 
-from googletrans import Translator  
+from googletrans import Translator
 
 from gtts import gTTS
 import os
