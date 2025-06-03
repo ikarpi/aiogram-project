@@ -1,23 +1,17 @@
-import requests
-from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardMarkup, InlineKeyboardButton
-from aiogram.utils.keyboard import ReplyKeyboardBuilder, InlineKeyboardBuilder
+from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
 import asyncio
-from aiogram import Bot, Dispatcher, F, types
-from aiogram.filters import CommandStart, Command
-from aiogram.types import Message, FSInputFile
+from aiogram import Bot, Dispatcher, F
+from aiogram.filters import Command
+from aiogram.types import Message
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import State, StatesGroup
-from aiogram.fsm.storage.memory import MemoryStorage
 
 from config import TOKEN
-import sqlite3
 import aiohttp
+import sqlite3
 import logging
 import requests
 import random
-
-from gtts import gTTS
-import os
 
 bot = Bot(token=TOKEN)
 dp = Dispatcher(
@@ -150,7 +144,7 @@ async def finances(message: Message, state: FSMContext):
     data = await state.get_data()
     telegram_id = message.from_user.id
     cursor.execute('''
-    UPDATE users SET category1 = ?, expenses1 = ?, category2 = ?, expensen2 = ?, category3 = ?, expenses3 = ? WHERE telegram_id = ?''',
+    UPDATE users SET category1 = ?, expenses1 = ?, category2 = ?, expenses2 = ?, category3 = ?, expenses3 = ? WHERE telegram_id = ?''',
                    (data['category1'], data['expenses1'], data['category2'], data['expenses2'], data['category3'], float(message.text), telegram_id))
     conn.commit()
     await state.clear()
